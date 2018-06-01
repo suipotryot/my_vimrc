@@ -163,13 +163,15 @@ Plugin 'tpope/vim-abolish'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+" Plugin 'SirVer/ultisnips'
+" Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-cucumber'
 Plugin 'tpope/vim-dispatch'
 " gundo for tree use of undo
 Plugin 'sjl/gundo.vim'
+" ctrlp.vim for file fuzzy finder
+Plugin 'ctrlpvim/ctrlp.vim'
 " ack for grep search
 Plugin 'mileszs/ack.vim'
 " For typescript
