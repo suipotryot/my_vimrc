@@ -56,20 +56,33 @@ Plug 'Shougo/vimproc.vim'
 Plug 'jiangmiao/auto-pairs'
 " For javascript
 Plug 'pangloss/vim-javascript'
-" For Python
-Plug 'davidhalter/jedi-vim'
 " For global search/replace
 Plug 'yegappan/greplace'
 " For presentation
 Plug 'alfredodeza/posero.vim'
+
+Plug 'ryanoasis/vim-devicons'
+
 " All of your Plugins must be added before the following line
 " Initialize plugin system
 call plug#end()
 " }}}
-" Colors {{{
-colorscheme badwolf
-set colorcolumn=100
-set cursorline
+" Colors & fonts {{{
+let g:airline_powerline_fonts = 1
+set guifont=Fura_Code_Nerd_Font:h11
+let g:webdevicons_enable_nerdtree = 1
+
+set background=light
+" solarized options 
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
+let g:solarized_termcolors=256
+colorscheme solarized
+
+let g:airline_theme='solarized'
+" }}}
+" vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1
 " }}}
 " Unit tests {{{
 nmap <silent> t<C-n> :TestNearest<CR>
@@ -79,13 +92,6 @@ nmap <silent> t<C-l> :TestLast<CR>
 nmap <silent> t<C-g> :TestVisit<CR>
 " make test commands execute using make
 let test#javascript#mocha#executable = "make test"
-" Auto test on save
-augroup test
-  autocmd!
-  autocmd BufWrite * if test#exists() |
-    \   TestFile |
-    \ endif
-augroup END
 " }}}
 " Misc {{{
 syntax on
@@ -133,8 +139,19 @@ nnoremap <leader>u :GundoToggle<CR>
 " open ack.vim
 nnoremap <leader>a :Ack!<Space>
 " nex hunk
-nnoremap <leader>n <Plug>GitGutterNextHunk
-nnoremap <leader>p <Plug>GitGutterPrevHunk
+nnoremap <leader>gn <Plug>GitGutterNextHunk
+nnoremap <leader>gp <Plug>GitGutterPrevHunk
+" Buffers {{{
+" Move to the next buffer
+nmap <leader>n :bnext<CR>
+" Move to the previous buffer
+nmap <leader>p :bprevious<CR>
+" Close the current buffer and move to the previous one
+" This replicates the idea of closing a tab
+nmap <leader>q :bp <BAR> bd #<CR>
+" Show all open buffers and their status
+nmap <leader>l :ls<CR>
+" }}}
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 " }}}
@@ -183,9 +200,6 @@ nnoremap <C-W><C-T> :terminal<CR>i
 " Save with <C-S>, quit with <C-Q>
 nnoremap <C-S> :w<CR>
 nnoremap <C-Q> :q<CR>
-" Change tabs with C-N and C-P
-" nnoremap <C-P> :tabp<CR>
-" nnoremap <C-N> :tabn<CR>
 " * In visual mode search for visual selection
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -219,6 +233,9 @@ let g:ctrlp_map = '<c-p>'
 " Ignore .gitignore files
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 " }}}
+" Kite {{{
+nmap <silent> <buffer> K <Plug>(kite-docs)
+" }}}
 " Git gutter {{{
 set updatetime=100
 " }}}
@@ -227,7 +244,6 @@ let g:gundo_prefer_python3 = 1
 " }}}
 " Nerdtree {{{
 " nerdtree
-map <F2> :NERDTreeTabsToggle<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeIgnore = ['\.pyc', '__pycache__']
 " Open NERDTree if no file was specified
@@ -236,16 +252,6 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " }}}
 " Prosero {{{
 let g:posero_default_mappings = 1
-" }}}
-" Statusline {{{
-set statusline+=%#warningmsg#
-set statusline+=%*
-" }}}
-" Syntastic {{{
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
 " }}}
 " Ultisnips {{{
 let g:UltiSnipsExpandTrigger="<C-B>"
